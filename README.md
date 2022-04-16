@@ -3,31 +3,41 @@
 - Solution to the kaggle competition [Machathon 3.0](https://www.kaggle.com/competitions/machathon-3/overview).
 - Ranked in the top :six: at the final evaluation phase.
 - Check our solution now on [collab](https://colab.research.google.com/drive/15LM0YL0Yi3KdwhPBrGH_G3iGkx6eT5XZ?usp=sharing)!
-
+- Check the solution [presentation](https://docs.google.com/presentation/d/1oKDeQLSAw4cRpJk1M4o6nnwFDsDRIpsHaDYuUuWA6oc/edit?usp=sharing)
 ## Preprocessing Pipeline
 ![The schematic of the processor](images/preproccessing_pipeline.png)
 
-### Step1: Separate the white plane.
-### Problems: 
-- The line in the middle of the white plate may be misclassified.
-- If we rotate the rotated white plate, thus the bounding box will be distorted
-### Solutions:
-- how much does this character fill the bounding box inside it
-- take a threshold on the probability of the label its classified with.
-- rotate the bounding box also
-- We may consider dividing the plate to 2 parts, first part to then be classified as numbers, second part to be classified as alphabets
-### Step2: Get countours on characters, filter countour by aspect ratio
-### Problems: 
-- Noisy countours, it may be a countour that represents no charcter.
-- 1 Arabic Letter may consist of multiple charachters e.g ت this may consist of 2 countours.
-### Solutions:
-- Can consider merging 2 countours into 1, by doing a threshold between their distances.
+## Approach
+### Step1: Preprocessing Enhancments on the image.
+- Most images had bad illumination and noise
+  - Morphological operations to Maximize Contrast.
+  - Gaussian Blur to remove Noise.
+- Thresholding on both Value and Saturation channels.
 
-### Step3: Give each extracted contour to the model, to be classified.
-- Will consider training 3 model, 
--   one for classifing only arabic letter
--   one for classifying arabic alphabet
--   one for classifying both, in case separating the white plane to 2 parts didn't yeild got results.
+### Step2: Extracting white plate using countours.
+- Get countours and sort based on Area.
+- Polygon Approximation For noisy countours.
+- Convex hull for Concave polygons.
+- 4-Point transformation For difficult camera angles. 
+
+Now have numbers in a countor and letters in another.
+
+### Step3: Separating characters from white plate using sliding windows.
+Can't use countours to get symbols in white plate since Arabic Letter may consist of multiple charachters 
+e.g ت  this may consist of 2/3 countours.
+#### Solution
+- Tuned 2 sliding windows, one for letters' white plate, the other for numbers.
+  - Variable window width
+  - Window height is the white plate height, since arabic characters may consist multiple parts
+- Selecting which window 
+  - Must have no black pixels on the sides
+  - Must have a specific range of black pixels inside
+  - For each group of windows the one with max black pixels is selected
+
+### Step4: Character Recognition.
+- Training 2 model since Arabic letters and numbers are similar e.g (أ,1) (5, ه)
+  - one for classifing only arabic letter
+  - one for classifying arabic alphabet
 
 ## Files Hirarchy
 ### Scripts
