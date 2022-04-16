@@ -36,10 +36,10 @@ e.g ت  this may consist of 2/3 countours.
 
 ### Step4: Character Recognition.
 - Training 2 model since Arabic letters and numbers are similar e.g (أ,1) (5, ه)
-  - one for classifing only arabic letter
-  - one for classifying arabic alphabet
+  - one for classifing only arabic letters.
+  - one for classifying arabic numbers.
 
-## Files Hirarchy
+## Files hierarchy
 ### Scripts
 - extract_bbx_xml.ipynb 
   - Takes directory of images and their bbx data stored in an xml files, and crop the bbxs from the images.
