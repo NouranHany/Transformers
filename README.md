@@ -39,40 +39,38 @@ e.g ت  this may consist of 2/3 countours.
   - one for classifing only arabic letters.
   - one for classifying arabic numbers.
 
-## Project Structure
+## Project Organization
 ### Scripts applied on images
-- extract_bbx_xml.ipynb 
-  - Takes directory of images and their bbx data stored in an xml files, and crop the bbxs from the images.
-  - The xml file contains licence label(name), xmin, ymin, xmax, ymax of the bbxs in an image.
-- extract_bbx_txt.ipynb 
-  - Takes directory of images and their bbx data stored in a txt files, and crop the bbxs from the images.
-  - The txt file corresponding to one image may consist of multiple bbxs, each corresponds to a row of xmin,ymin,xmax,ymax for that bbx.
-- crop_right_noise
-  - Crops an image with some percentage and replace with the cropped image.
+```
+./Macathon/code/
+├── extract_bbx_xml.ipynb                       : Takes directory of images and their bbx data stored in an xml files, and crop the bbxs from the images.
+|                                                 The xml file contains licence label(name), xmin, ymin, xmax, ymax of the bbxs in an image.    
+├── extract_bbx_txt.ipynb                       : Takes directory of images and their bbx data stored in a txt files, and crop the bbxs from the images.
+|                                                 The txt file corresponding to one image may consist of multiple bbxs, each corresponds to a row of xmin,ymin,xmax,ymax for that bbx.
+└── crop_right_noise.ipynb                      : Crops an image with some percentage and replace with the cropped image. 
+```
+
 ### Model versions
-- model.ipynb
-  - The preprocessing and modeling stage
-  - Contains:
-    - Preprocessing Functions
-    - Training both classifers
-    - Prediction and generating the output csv file
+```
+./Macathon/code/
+└── model.ipynb                      : - The preprocessing and modeling stage, Contains:
+                                          - Preprocessing Functions
+                                          - Training both classifers
+                                          - Prediction and generating the output csv file
+```
 
 ### Data Folder
-- challenging_images.rar
-  - Most challenging images collected from the train data.
-- cropped_letters.zip
-  - 28 Subfolders corresponding to the 28 letter in Arabic alphabet.
-  - Each subfolder holds images for the letter it's named after, cropped from the train data distribution.
-- cropped_numbers.zip
-  - 10 Subfolders for the 10 numbers.
-  - Each subfolder holds images for the number it's named after, cropped from the train data distribution.
-- machathon-3.zip
-  - The uploaded data found with the kaggle competition.
-- testLetters.zip
-  - 200 images labeled from the test data distribution.
-  - each image has a corresponding xml file holding the bbxs locations in it.
-
-
+```
+./Macathon/data/
+├── challenging_images.rar                      : Contains most challenging images collected from the train data. 
+├── cropped_letters.zip                         : 28 Subfolders corresponding to the 28 letter in Arabic alphabet.
+|                                                 Each subfolder holds images for the letter it's named after, cropped from the train data distribution.
+├── cropped_numbers.zip                         : 10 Subfolders for the 10 numbers.
+|                                                 Each subfolder holds images for the number it's named after, cropped from the train data distribution.
+├── machathon-3.zip                             : The uploaded data found with the kaggle competition.
+└── testLetters.zip                             : 200 images labeled from the test data distribution.
+                                                  Each image has a corresponding xml file holding the bbxs locations in it.
+```
 
 ## Contributors
 ### This masterpiece was designed, and implemented by
